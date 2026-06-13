@@ -103,3 +103,24 @@ select b.booking_id,u.full_name,m.fixture,round(b.total_cost) from Bookings b
 INNER JOIN Users u ON b.user_id = u.user_id
 INNER JOIN Matches m ON b.match_id = m.match_id;
 
+
+--Query-5: Display a comprehensive list of all users and their booking IDs, ensuring that fans who have never bought a ticket are still listed.
+
+select u.user_id,u.full_name,b.booking_id from Users u
+LEFT JOIN Bookings b on u.user_id = b.user_id
+ORDER BY u.user_id, b.booking_id;
+
+
+--Query-6: Find all ticket bookings where the total cost is strictly higher than the average cost of all ticket bookings.
+
+select booking_id,match_id,round(total_cost, 0) AS total_cost
+from Bookings
+where total_cost >(select avg(total_cost) from Bookings);
+
+
+--Query-7: Retrieve the top 2 most expensive matches sorted by base ticket price, skipping the absolute highest premium match.
+
+select match_id,fixture,round(base_ticket_price, 0) as base_ticket_price
+from Matches ORDER BY base_ticket_price DESC
+LIMIT 2
+OFFSET 1;
