@@ -100,8 +100,8 @@ select booking_id,user_id,match_id,coalesce(payment_status,'Action Required') AS
 --Query-4: Retrieve match booking details along with the User's full name and the scheduled Match fixture teams.
 
 select b.booking_id,u.full_name,m.fixture,round(b.total_cost) from Bookings b
-INNER JOIN Users u ON b.user_id = u.user_id
-INNER JOIN Matches m ON b.match_id = m.match_id;
+INNER JOIN Users u on b.user_id = u.user_id
+INNER JOIN Matches m on b.match_id = m.match_id;
 
 
 --Query-5: Display a comprehensive list of all users and their booking IDs, ensuring that fans who have never bought a ticket are still listed.
@@ -113,7 +113,7 @@ ORDER BY u.user_id, b.booking_id;
 
 --Query-6: Find all ticket bookings where the total cost is strictly higher than the average cost of all ticket bookings.
 
-select booking_id,match_id,round(total_cost, 0) AS total_cost
+select booking_id,match_id,round(total_cost, 0) as total_cost
 from Bookings
 where total_cost >(select avg(total_cost) from Bookings);
 
